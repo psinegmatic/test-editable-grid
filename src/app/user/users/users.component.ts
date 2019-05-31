@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { GetUsers } from '../user.actions';
+import { GetUsers, UPDATE_USER, UpdateUser } from '../user.actions';
 import { Observable } from 'rxjs';
 import { User, GridPagination } from '../user.reducer';
 import { selectAllUsers, selectPaginationUsers } from '../user.selectors';
@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit {
 
     this.users$
     .pipe(
-      filter(user => !! user),
+      filter(users => !! users),
       distinctUntilChanged()
     )
     .subscribe(
@@ -54,9 +54,9 @@ export class UsersComponent implements OnInit {
   public updateField(index, field) {
     const control = this.getControl(index, field);
     if (control.valid) {
-      console.log(index, field, control);
+      const userFromForm = this.controls.at(index).value as User;
+      this.store.dispatch(new UpdateUser({id: userFromForm.id, changes: userFromForm}));
     }
-
    }
 
    public getControl(index, fieldName) {
