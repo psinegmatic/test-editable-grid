@@ -64,7 +64,7 @@ export function userReducer(state = initialState, action: UserActions.Actions): 
       });
     }
 
-    case UserActions.UPDATE_USER: {
+    case UserActions.UPDATE_USER_SUCCESS: {
       return adapter.updateOne(action.payload, state);
     }
     default: {

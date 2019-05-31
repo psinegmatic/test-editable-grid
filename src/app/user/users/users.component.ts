@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { GetUsers, UPDATE_USER, UpdateUser } from '../user.actions';
+import { GetUsers, UpdateUser } from '../store/user.actions';
 import { Observable } from 'rxjs';
-import { User, GridPagination } from '../user.reducer';
-import { selectAllUsers, selectPaginationUsers } from '../user.selectors';
+import { User, GridPagination } from '../store/user.reducer';
+import { selectAllUsers, selectPaginationUsers } from '../store/user.selectors';
 import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit {
       distinctUntilChanged()
     )
     .subscribe(
-      (users => this.controls = new FormArray(users.map(user => {
+      users => this.controls = new FormArray(users.map(user => {
         return new FormGroup({
           id:  new FormControl(user.id, Validators.required),
           first_name: new FormControl(user.first_name, Validators.required),
@@ -43,7 +43,7 @@ export class UsersComponent implements OnInit {
           email: new FormControl(user.email, [Validators.required, Validators.email]),
           avatar: new FormControl(user.avatar, Validators.required)
         }, {updateOn: 'blur'});
-      })))
+      }))
     );
   }
 
@@ -51,15 +51,18 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(new GetUsers({page: e.pageIndex + 1, per_page: e.pageSize}));
   }
 
-  public updateField(index, field) {
-    const control = this.getControl(index, field);
+  public updateField(index: number, fieldName: string) {
+    const control = this.getControl(index, fieldName);
     if (control.valid) {
       const userFromForm = this.controls.at(index).value as User;
-      this.store.dispatch(new UpdateUser({id: userFromForm.id, changes: userFromForm}));
+      this.store.dispatch(new UpdateUser({id: userFromForm.id, changes: {
+        id: userFromForm.id,
+        [fieldName]: control.value
+      }}));
     }
    }
 
-   public getControl(index, fieldName) {
+   public getControl(index: number, fieldName: string) {
     return this.controls.at(index).get(fieldName) as FormControl;
   }
 
