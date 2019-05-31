@@ -1,0 +1,49 @@
+<mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="first_name">
+    <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+    <mat-cell *matCellDef="let element; let index = index">
+      <app-grid-edit
+      [content]="element.first_name"
+      [control]="getControl(index, 'first_name')"
+      (updateControl)="updateField(index, 'first_name')"></app-grid-edit>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="last_name">
+    <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+    <mat-cell *matCellDef="let element; let index = index">
+      <app-grid-edit
+      [content]="element.last_name"
+      [control]="getControl(index, 'last_name')"
+      (updateControl)="updateField(index, 'last_name')"></app-grid-edit>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+    <mat-cell *matCellDef="let element; let index = index">
+      <app-grid-edit
+      [content]="element.email"
+      [control]="getControl(index, 'email')"
+      (updateControl)="updateField(index, 'email')"></app-grid-edit>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="avatar">
+    <mat-header-cell *matHeaderCellDef> Avatar </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.avatar}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [length]="(pagination$ | async)?.total"
+ [pageSize]="(pagination$ | async)?.per_page"
+ (page)="onPage($event)"
+ ></mat-paginator>

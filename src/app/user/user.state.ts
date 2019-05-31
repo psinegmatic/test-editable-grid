@@ -1,12 +1,12 @@
-export interface State {
+export interface UserState {
   users: {
     data: any;
     isLoading?: boolean;
     error?: any;
-  }
+  };
 }
 
-export const initialState: State = {
+export const initialState: UserState = {
   users: {
     data: null,
     isLoading: false,
