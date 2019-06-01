@@ -63,7 +63,7 @@ export class UsersContainerComponent implements OnInit {
     this._store.dispatch(new GetUsers({page: e.pageIndex + 1, per_page: e.pageSize}));
   }
 
-  public updateUser(user: UpdateNum<User>) {
+  public updateUser(user: UpdateNum<User>): void {
     this._store.dispatch(new UpdateUser(user));
   }
 

@@ -1,35 +1,33 @@
 <mat-table [dataSource]="data$ | async" class="mat-elevation-z8" *ngIf="data$ | async">
 
-    <ng-container *ngFor="let column of columns">
-        <ng-container [matColumnDef]="column.columnDef" *ngIf="column.editable">
-            <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
-            <mat-cell *matCellDef="let element; let index = index">
-              <app-grid-edit *ngIf="getControl(index, column.columnDef)"
-              [content]="column.cell(element)"
-              [control]="getControl(index, column.columnDef)"
-              (updateControl)="updateField($event, index, column.columnDef)"></app-grid-edit>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container [matColumnDef]="column.columnDef" *ngIf="!column.editable">
-              <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                  <ng-container *ngIf="column.contentType === eGridContentType.STRING;">
-                      {{column.cell(element)}}
-                  </ng-container>
-                  <ng-container *ngIf="column.contentType === eGridContentType.IMG;">
-                      <div class="avatar">
-                          <img [src]="column.cell(element)" alt="Avatar" width="60px">
-                      </div>
-                  </ng-container>
-              </mat-cell>
-            </ng-container>
+  <ng-container *ngFor="let column of columns">
+    <ng-container [matColumnDef]="column.columnDef" *ngIf="column.editable">
+      <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
+      <mat-cell *matCellDef="let element; let index = index">
+        <app-grid-edit *ngIf="getControl(index, column.columnDef)" [content]="column.cell(element)"
+          [control]="getControl(index, column.columnDef)"
+          (updateControl)="updateField($event, index, column.columnDef)"></app-grid-edit>
+      </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+    <ng-container [matColumnDef]="column.columnDef" *ngIf="!column.editable">
+      <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="column.contentType === eGridContentType.STRING;">
+          {{column.cell(element)}}
+        </ng-container>
+        <ng-container *ngIf="column.contentType === eGridContentType.IMG;">
+          <div class="avatar">
+            <img [src]="column.cell(element)" alt="Avatar" width="60px">
+          </div>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+  </ng-container>
 
-  <mat-paginator *ngIf="data$ | async" [length]="(pagination$ | async)?.total"
-   [pageSize]="(pagination$ | async)?.per_page"
-   (page)="onPage($event)"></mat-paginator>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator *ngIf="data$ | async" [length]="(pagination$ | async)?.total"
+  [pageSize]="(pagination$ | async)?.per_page" (page)="onPage($event)"></mat-paginator>
