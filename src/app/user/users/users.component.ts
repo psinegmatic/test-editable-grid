@@ -3,7 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
-import { GridPagination, GridColumnsConfig } from '../models/grid.model';
+import { GridPagination } from '../models/grid.model';
+import { User } from '../models/user.model';
 import { UpdateNum } from '@ngrx/entity/src/models';
 
 @Component({
@@ -13,43 +14,39 @@ import { UpdateNum } from '@ngrx/entity/src/models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  @Input() data$: Observable<{[name: string]: any}[]>;
+  @Input() users$: Observable<User[]>;
   @Input() pagination$: Observable<GridPagination>;
   @Input() displayedColumns: string[];
-  @Input() columns: GridColumnsConfig[];
   @Output() changePage = new EventEmitter<PageEvent>();
-  @Output() updateColumn = new EventEmitter<UpdateNum<{[name: string]: any}>>();
+  @Output() updateColumn = new EventEmitter<UpdateNum<User>>();
   private _controls: FormArray;
   private _destroy$ = new Subject<boolean>();
 
   constructor() { }
 
   ngOnInit() {
-    this.data$
+    this.users$
     .pipe(
-      filter(data => !! data),
+      filter(users => !! users),
       distinctUntilChanged(),
       takeUntil(this._destroy$)
     )
     .subscribe(
-      data => this._controls = this.createFormArray(data)
+      users => this._controls = new FormArray(users.map(user => {
+        return new FormGroup({
+          id:  new FormControl(user.id, Validators.required),
+          first_name: new FormControl(user.first_name, Validators.required),
+          last_name: new FormControl(user.last_name, Validators.required),
+          email: new FormControl(user.email, Validators.required),
+          avatar: new FormControl(user.avatar, Validators.required)
+        });
+      }))
     );
   }
 
   ngOnDestroy() {
     this._destroy$.next(true);
     this._destroy$.unsubscribe();
-  }
-
-  public createFormArray(gridData: Array<object>): FormArray {
-    const arr = gridData.map(item => {
-      const formGroup = {};
-      for (const key of Object.keys(item)) {
-        formGroup[key] = new FormControl(item[key], Validators.required);
-      }
-      return new FormGroup(formGroup);
-    });
-    return new FormArray(arr);
   }
 
   public onPage(e: PageEvent): void {
@@ -59,9 +56,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   public updateField(firstValue: string, index: number, fieldName: string): void {
     const control = this.getControl(index, fieldName);
     if (control.valid && firstValue !== control.value) {
-      const valueFromControl = this._controls.at(index).value;
-      this.updateColumn.emit({id: valueFromControl.id, changes: {
-        id: valueFromControl.id,
+      const userFromForm = this._controls.at(index).value as User;
+      this.updateColumn.emit({id: userFromForm.id, changes: {
+        id: userFromForm.id,
         [fieldName]: control.value
       }});
     }
