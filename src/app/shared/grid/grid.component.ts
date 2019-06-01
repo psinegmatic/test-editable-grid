@@ -4,12 +4,13 @@ import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { UpdateNum } from '@ngrx/entity/src/models';
-import { GridPagination, GridColumnsConfig, EGridContentType } from 'src/app/shared/grid/grid.model';
+import { GridPagination, GridColumnsConfig, EGridContentType } from './grid.model';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  styleUrls: ['./grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent implements OnInit, OnDestroy {
   @Input() data$: Observable<{[name: string]: any}[]>;

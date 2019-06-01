@@ -5,7 +5,6 @@ import { StoreModule } from '@ngrx/store';
 import { UserEffects } from './store/user.effects';
 import { userReducer } from './store/user.reducer';
 import { UserRoutingModule } from './user-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { UsersContainerComponent } from './users-container/users-container.component';
 
