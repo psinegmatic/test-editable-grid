@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { UsersContainerComponent } from './users-container/users-container.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import { SharedModule } from '../shared/shared.module';
     EffectsModule.forFeature([UserEffects])
   ],
   providers: [],
-  declarations: [UsersComponent]
+  declarations: [UsersComponent, UsersContainerComponent]
 })
 export class UserModule {}

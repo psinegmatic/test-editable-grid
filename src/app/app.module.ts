@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './reducers';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,25 +1,13 @@
 import * as UserActions from './user.actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { GridPagination } from '../models/grid.model';
+import { User } from '../models/user.model';
 
-export interface GridPagination {
-  page?: number;
-  per_page?: number;
-  total?: number;
-  total_pages?: number;
-}
 
 export interface UserState extends EntityState<User> {
   loading: boolean;
   error: any;
   pagination: GridPagination;
-}
-
-export interface User {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
 }
 
 const adapter: EntityAdapter<User> = createEntityAdapter<User>();
@@ -39,7 +27,7 @@ export function userReducer(state = initialState, action: UserActions.Actions): 
     case UserActions.GET_USERS: {
       return adapter.removeAll({
           ...state,
-          loading: false,
+          loading: true,
           error: null
         });
     }
@@ -64,8 +52,27 @@ export function userReducer(state = initialState, action: UserActions.Actions): 
       });
     }
 
+    case UserActions.UPDATE_USER: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case UserActions.UPDATE_USER_SUCCESS: {
-      return adapter.updateOne(action.payload, state);
+      return adapter.updateOne(action.payload,
+        {
+          ...state,
+          loading: false,
+          error: null
+        }
+      );
+    }
+    case UserActions.UPDATE_USER_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
     }
     default: {
       return state;

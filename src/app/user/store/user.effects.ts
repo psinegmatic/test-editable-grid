@@ -22,6 +22,7 @@ export class UserEffects {
       this._userService.getUsers(action.payload).pipe(
         map(data => new UserActions.GetUsersSuccess(data)),
         catchError(error => {
+          // Error handling
           return of(new UserActions.GetUsersError(error));
         })
       )
@@ -37,6 +38,7 @@ export class UserEffects {
           return new UserActions.UpdateUserSuccess({id: data.id, changes: data});
         }),
         catchError(error => {
+          // Error handling
           return of(new UserActions.UpdateUserError(error));
         })
       )

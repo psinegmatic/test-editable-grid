@@ -1,0 +1,11 @@
+:host {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  span {
+    cursor: context-menu;
+  }
+}
+
+input {
+  font-size: 14px;
+}

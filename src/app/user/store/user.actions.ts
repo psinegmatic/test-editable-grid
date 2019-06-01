@@ -1,11 +1,12 @@
 import { Action } from '@ngrx/store';
-import { GridPagination, User } from './user.reducer';
 import { Update } from '@ngrx/entity';
+import { GridPagination } from '../models/grid.model';
+import { User, UserReq } from '../models/user.model';
 
 // get Users
-export const GET_USERS = '[User] Get News';
-export const GET_USERS_SUCCESS = '[User] Get News -> Success';
-export const GET_USERS_ERROR = '[User] Get News -> Error';
+export const GET_USERS = '[User] Get Users';
+export const GET_USERS_SUCCESS = '[User] Get Users -> Success';
+export const GET_USERS_ERROR = '[User] Get Users -> Error';
 
 export class GetUsers implements Action {
   readonly type = GET_USERS;
@@ -13,7 +14,7 @@ export class GetUsers implements Action {
 }
 export class GetUsersSuccess implements Action {
   readonly type = GET_USERS_SUCCESS;
-  constructor(public payload: any) { }
+  constructor(public payload: UserReq) { }
 }
 export class GetUsersError implements Action {
   readonly type = GET_USERS_ERROR;
