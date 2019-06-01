@@ -28,11 +28,11 @@ export class UsersContainerComponent implements OnInit {
     this.pagination$ = this._store.pipe(select(selectPaginationUsers));
   }
 
-  public onChangePage(e: PageEvent): void {
+  public changePage(e: PageEvent): void {
     this._store.dispatch(new GetUsers({page: e.pageIndex + 1, per_page: e.pageSize}));
   }
 
-  public onUpdateUser(user: UpdateNum<User>) {
+  public updateUser(user: UpdateNum<User>) {
     this._store.dispatch(new UpdateUser(user));
   }
 

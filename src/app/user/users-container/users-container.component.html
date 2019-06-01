@@ -1,6 +1,6 @@
 <app-users [users$]="users$"
   [pagination$]="pagination$"
   [displayedColumns]="displayedColumns"
-  (changePage)="onChangePage($event)"
-  (updateColumn)="onUpdateUser($event)"
+  (changePage)="changePage($event)"
+  (updateColumn)="updateUser($event)"
 ></app-users>

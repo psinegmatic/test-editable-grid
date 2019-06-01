@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { UpdateUser } from '../store/user.actions';
 import { Observable, Subject } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
