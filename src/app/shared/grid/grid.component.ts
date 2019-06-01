@@ -3,16 +3,15 @@ import { Observable, Subject } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
-import { GridPagination, GridColumnsConfig } from '../models/grid.model';
 import { UpdateNum } from '@ngrx/entity/src/models';
+import { GridPagination, GridColumnsConfig } from 'src/app/user/models/grid.model';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-grid',
+  templateUrl: './grid.component.html',
+  styleUrls: ['./grid.component.scss']
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class GridComponent implements OnInit, OnDestroy {
   @Input() data$: Observable<{[name: string]: any}[]>;
   @Input() pagination$: Observable<GridPagination>;
   @Input() displayedColumns: string[];

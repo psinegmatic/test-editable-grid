@@ -1,7 +1,7 @@
-<app-users [data$]="users$"
+<app-grid [data$]="users$"
   [pagination$]="pagination$"
   [columns]="columns"
   [displayedColumns]="displayedColumns"
   (changePage)="changePage($event)"
   (updateColumn)="updateUser($event)"
-></app-users>
+></app-grid>

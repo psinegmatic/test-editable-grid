@@ -4,11 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UserEffects } from './store/user.effects';
 import { userReducer } from './store/user.reducer';
-import { UsersComponent } from './users/users.component';
 import { UserRoutingModule } from './user-routing.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { UsersContainerComponent } from './users-container/users-container.component';
@@ -17,16 +13,11 @@ import { UsersContainerComponent } from './users-container/users-container.compo
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
     UserRoutingModule,
     StoreModule.forFeature('user', userReducer),
     EffectsModule.forFeature([UserEffects])
   ],
   providers: [],
-  declarations: [UsersComponent, UsersContainerComponent]
+  declarations: [UsersContainerComponent]
 })
 export class UserModule {}
