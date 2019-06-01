@@ -17,7 +17,7 @@ import { UpdateNum } from '@ngrx/entity/src/models';
 export class UsersComponent implements OnInit, OnDestroy {
   @Input() users$: Observable<User[]>;
   @Input() pagination$: Observable<GridPagination>;
-  @Input() displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'avatar'];
+  @Input() displayedColumns: string[];
   @Output() changePage = new EventEmitter<PageEvent>();
   @Output() updateColumn = new EventEmitter<UpdateNum<User>>();
   private _controls: FormArray;
