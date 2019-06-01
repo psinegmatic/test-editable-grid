@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AppState } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { GetUsers, UpdateUser } from '../store/user.actions';
 import { Observable } from 'rxjs';
@@ -8,6 +7,7 @@ import { User } from '../models/user.model';
 import { selectAllUsers, selectPaginationUsers } from '../store/user.selectors';
 import { PageEvent } from '@angular/material/paginator';
 import { UpdateNum } from '@ngrx/entity/src/models';
+import { AppState } from './../../reducers';
 
 @Component({
   selector: 'app-users-container',
