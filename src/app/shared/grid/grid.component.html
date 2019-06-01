@@ -13,7 +13,16 @@
 
           <ng-container [matColumnDef]="column.columnDef" *ngIf="!column.editable">
               <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{column.cell(element)}} </mat-cell>
+              <mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="column.contentType === eGridContentType.STRING;">
+                      {{column.cell(element)}}
+                  </ng-container>
+                  <ng-container *ngIf="column.contentType === eGridContentType.IMG;">
+                      <div class="avatar">
+                          <img [src]="column.cell(element)" alt="Avatar" width="60px">
+                      </div>
+                  </ng-container>
+              </mat-cell>
             </ng-container>
     </ng-container>
 

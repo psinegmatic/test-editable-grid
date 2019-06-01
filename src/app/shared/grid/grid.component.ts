@@ -4,7 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { UpdateNum } from '@ngrx/entity/src/models';
-import { GridPagination, GridColumnsConfig } from 'src/app/user/models/grid.model';
+import { GridPagination, GridColumnsConfig, EGridContentType } from 'src/app/user/models/grid.model';
 
 @Component({
   selector: 'app-grid',
@@ -20,6 +20,7 @@ export class GridComponent implements OnInit, OnDestroy {
   @Output() updateColumn = new EventEmitter<UpdateNum<{[name: string]: any}>>();
   private _controls: FormArray;
   private _destroy$ = new Subject<boolean>();
+  public eGridContentType = EGridContentType;
 
   constructor() { }
 
