@@ -4,3 +4,10 @@ export interface GridPagination {
   total?: number;
   total_pages?: number;
 }
+
+export interface GridColumnsConfig {
+  columnDef: string;
+  header: string;
+  editable: boolean;
+  cell: ( element: any) => string;
+}

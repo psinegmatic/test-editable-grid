@@ -10,7 +10,7 @@ export type ViewType = 'view' | 'edit';
           <span *ngIf="(mode$ | async) === 'view'" title="Edit on double click">
             {{content}}
           </span>
-          <input [formControl]="control" *ngIf="(mode$ | async) === 'edit'">
+          <input [formControl]="control" *ngIf="(mode$ | async) === 'edit'" (keyup.enter)="toViewMode()">
   `,
   styleUrls: ['./grid-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,7 +38,7 @@ export class GridEditComponent implements OnInit, OnDestroy {
     this._destroy$.unsubscribe();
   }
 
-  private _toViewMode(): void {
+  public toViewMode(): void {
     this.updateControl.next(this._firstValue);
     this.mode$.next('view');
   }
@@ -67,7 +67,7 @@ export class GridEditComponent implements OnInit, OnDestroy {
         switchMapTo(clickOutside$),
         takeUntil(this._destroy$)
       ).subscribe(event => {
-        this._toViewMode();
+        this.toViewMode();
       });
     }
 }
