@@ -3,7 +3,7 @@ import { AppState } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { GetUsers, UpdateUser } from '../store/user.actions';
 import { Observable } from 'rxjs';
-import { GridPagination, GridColumnsConfig, EGridContentType } from '../models/grid.model';
+import { GridPagination, GridColumnsConfig, EGridContentType } from '../../shared/grid/grid.model';
 import { User } from '../models/user.model';
 import { selectAllUsers, selectPaginationUsers } from '../store/user.selectors';
 import { PageEvent } from '@angular/material/paginator';

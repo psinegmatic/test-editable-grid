@@ -1,4 +1,4 @@
-import { GridPagination } from './grid.model';
+import { GridPagination } from '../../shared/grid/grid.model';
 
 export interface User {
   id: number;

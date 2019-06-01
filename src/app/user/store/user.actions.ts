@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { GridPagination } from '../models/grid.model';
+import { GridPagination } from '../../shared/grid/grid.model';
 import { User, UserReq } from '../models/user.model';
 
 // get Users

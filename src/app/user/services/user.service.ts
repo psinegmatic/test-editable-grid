@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GridPagination } from '../models/grid.model';
+import { GridPagination } from '../../shared/grid/grid.model';
 import { User, UserReq } from '../models/user.model';
 
 @Injectable({

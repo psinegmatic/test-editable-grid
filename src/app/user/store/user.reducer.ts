@@ -1,6 +1,6 @@
 import * as UserActions from './user.actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { GridPagination } from '../models/grid.model';
+import { GridPagination } from '../../shared/grid/grid.model';
 import { User } from '../models/user.model';
 
 
